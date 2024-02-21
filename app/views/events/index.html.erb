@@ -1,4 +1,28 @@
 <h1>Home page</h1>
-<%@events.each do |event|%>
-  <%="#{event.title} at #{event.location}"%><br>
-<%end%>
+<ul>
+  <% if user_signed_in? %>
+    
+    <h2>Bievenue <%= current_user.first_name %></h2>
+
+    
+    <%@events.each do |event|%>
+    <li><%="#{event.title} at #{event.location}"%><br></li>
+    <%end%>
+    
+  </ul>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete, data: {turbo_method: :delete} %><br>
+      <%= link_to "Edit email / password", edit_user_registration_path %>
+    </li>
+  <% else %>
+    <li>    
+      <%= link_to "Sign in", new_user_session_path %>
+    </li>
+
+    <li>
+      <%= link_to "Sign up", new_user_registration_path %>
+    </li>
+
+  <% end %>
+
+
+
